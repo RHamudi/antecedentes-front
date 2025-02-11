@@ -16,11 +16,11 @@ export default function Sidebar() {
       </div> */}
       <aside
         id="default-sidebar"
-        className="w-full z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        className="h-screen z-10"
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 ">
-          <h1 className="text-black text-center font-bold">Menu</h1>
+        <div className="h-full w-60 shadow-2xs  overflow-y-auto bg-gray-100 ">
+          <h1 className="text-black text-center font-bold p-6">Menu</h1>
           <ul className="space-y-2 font-medium">
             <li>
               <a
