@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export default function Dashboard({ id }) {
   const [tasks, setTasks] = useState([]);
   const [file, setFile] = useState(null);
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     axios
@@ -13,7 +14,7 @@ export default function Dashboard({ id }) {
         setTasks(res.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [refresh]);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -36,6 +37,7 @@ export default function Dashboard({ id }) {
 
       if (response.ok) {
         alert("Upload concluído com sucesso!");
+        setRefresh((prev) => prev + 1);
       } else {
         alert("Erro ao enviar o arquivo.");
       }
@@ -46,7 +48,7 @@ export default function Dashboard({ id }) {
   };
 
   return (
-    <div className="w-full bg-white text-black">
+    <div className="w-full bg-white text-black z-0">
       <header className="flex justify-between p-6">
         <input
           type="search"
@@ -59,8 +61,7 @@ export default function Dashboard({ id }) {
         <div>Logout</div>
       </header>
       <section>
-        <div className="flex flex-row justify-between p-5">
-          <h1>Dashboard</h1>
+        <div className="flex flex-row justify-end p-5">
           <div>
             <input
               placeholder="Escolha um arquivo"
@@ -77,9 +78,9 @@ export default function Dashboard({ id }) {
             </button>
           </div>
         </div>
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left rtl:text-right">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <div className="relative overflow-x-auto">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
                 <th scope="col" className="px-6 py-3">
                   Nome
@@ -94,22 +95,32 @@ export default function Dashboard({ id }) {
             </thead>
             <tbody>
               {tasks.map((task, index) => (
-                <tr key={index}>
+                <tr key={index} className="bg-white border-b border-gray-200">
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium tex-black whitespace-nowrap"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                   >
                     {task.fileName}
                   </th>
-                  <td className="px-6 py-4">{task.status}</td>
+                  {task.status == "Concluido" ? (
+                    <td className="px-6 py-4 text-green-700">{task.status}</td>
+                  ) : (
+                    <td className="px-6 py-4">{task.status}</td>
+                  )}
                   <td className="px-6 py-4">
-                    <a
-                      target="_blank"
-                      href={`http://127.0.0.1:8000/uploads/${task.id}/download`}
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    >
-                      Baixar
-                    </a>
+                    {task.status === "processando" ? (
+                      <span className="font-medium text-gray-400 cursor-not-allowed">
+                        Baixar
+                      </span>
+                    ) : (
+                      <a
+                        target="_blank"
+                        href={`http://127.0.0.1:8000/uploads/${task.id}/download`}
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        Baixar
+                      </a>
+                    )}
                   </td>
                 </tr>
               ))}
