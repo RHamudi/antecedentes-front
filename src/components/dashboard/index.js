@@ -1,4 +1,5 @@
 "use client";
+import { useAppContext } from "@/context/context";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -6,6 +7,7 @@ export default function Dashboard({ id }) {
   const [tasks, setTasks] = useState([]);
   const [file, setFile] = useState(null);
   const [refresh, setRefresh] = useState(0);
+  const { Logout } = useAppContext();
 
   useEffect(() => {
     axios
@@ -58,10 +60,24 @@ export default function Dashboard({ id }) {
           required
         />
 
-        <div>Logout</div>
+        <button
+          type="button"
+          onClick={() => Logout()}
+          class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+        >
+          Sair
+        </button>
       </header>
       <section>
-        <div className="flex flex-row justify-end p-5">
+        <div className="flex flex-row justify-between p-5">
+          <button
+            onClick={() => {
+              setRefresh((prev) => prev + 1);
+            }}
+            className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded text-sm px-5 py-2.5 "
+          >
+            Atualizar
+          </button>
           <div>
             <input
               placeholder="Escolha um arquivo"
@@ -72,7 +88,7 @@ export default function Dashboard({ id }) {
             <button
               onClick={handleUpload}
               type="button"
-              className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2"
+              className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded text-sm px-5 py-2.5"
             >
               Enviar
             </button>
