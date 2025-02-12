@@ -13,6 +13,9 @@ export function AppProvider({ children }) {
   const [nome, setNome] = useState("");
   const [userId, setUserId] = useState();
   const route = useRouter();
+  function Logout() {
+    setAuth(false);
+  }
 
   function Authenticate(email, senha) {
     axios
@@ -30,7 +33,7 @@ export function AppProvider({ children }) {
   }
 
   return (
-    <AppContext.Provider value={{ auth, nome, userId, Authenticate }}>
+    <AppContext.Provider value={{ auth, nome, userId, Authenticate, Logout }}>
       {children}
     </AppContext.Provider>
   );
