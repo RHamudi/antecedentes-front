@@ -11,7 +11,7 @@ export default function Dashboard({ id }) {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/tasks/${id}`)
+      .get(`http://82.29.56.109/tasks/${id}`)
       .then((res) => {
         setTasks(res.data);
       })
@@ -32,7 +32,7 @@ export default function Dashboard({ id }) {
     formData.append("file", file);
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/upload/${id}`, {
+      const response = await fetch(`http://82.29.56.109/upload/${id}`, {
         method: "POST",
         body: formData,
       });
@@ -63,7 +63,7 @@ export default function Dashboard({ id }) {
         <button
           type="button"
           onClick={() => Logout()}
-          class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
         >
           Sair
         </button>
@@ -131,7 +131,7 @@ export default function Dashboard({ id }) {
                     ) : (
                       <a
                         target="_blank"
-                        href={`http://127.0.0.1:8000/uploads/${task.id}/download`}
+                        href={`http://82.29.56.109/uploads/${task.id}/download`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Baixar
