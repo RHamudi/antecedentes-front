@@ -19,7 +19,7 @@ export function AppProvider({ children }) {
 
   function Authenticate(email, senha) {
     axios
-      .post(`http://82.29.56.109/login`, {
+      .post(`https://82.29.56.109/login`, {
         email: email,
         senha: senha,
       })

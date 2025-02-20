@@ -11,7 +11,7 @@ export default function Dashboard({ id }) {
 
   useEffect(() => {
     axios
-      .get(`http://82.29.56.109/tasks/${id}`)
+      .get(`https://82.29.56.109/tasks/${id}`)
       .then((res) => {
         setTasks(res.data);
       })
@@ -32,7 +32,7 @@ export default function Dashboard({ id }) {
     formData.append("file", file);
 
     try {
-      const response = await fetch(`http://82.29.56.109/upload/${id}`, {
+      const response = await fetch(`https://82.29.56.109/upload/${id}`, {
         method: "POST",
         body: formData,
       });
@@ -131,7 +131,7 @@ export default function Dashboard({ id }) {
                     ) : (
                       <a
                         target="_blank"
-                        href={`http://82.29.56.109/uploads/${task.id}/download`}
+                        href={`https://82.29.56.109/uploads/${task.id}/download`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Baixar
